@@ -11,8 +11,10 @@ use Imi\Etcd\Config\Contract\IEtcdConfigDriver;
 
 class EtcdConfigDriver implements IEtcdConfigDriver
 {
+    protected Client $client;
+
     public function getOriginClient(): Client
     {
-        // TODO: Implement getOriginClient() method.
+        return $this->client;
     }
 }
