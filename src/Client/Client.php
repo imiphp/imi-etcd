@@ -111,7 +111,6 @@ class Client
      *        bool   ignore_value
      *        bool   ignore_lease
      * @return array
-     * @throws InvalidUrl
      */
     public function put(string $key, string $value, array $options = [])
     {

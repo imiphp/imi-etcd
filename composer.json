@@ -5,7 +5,8 @@
   "description": "imi 框架 Etcd 组件。imi Etcd component.",
   "require": {
     "imiphp/imi-config-center": "2.1.x-dev",
-    "yurunsoft/yurun-http": "^4.3.0"
+    "yurunsoft/yurun-http": "^4.3.0",
+    "ext-json": "*"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "~3.4.0",
