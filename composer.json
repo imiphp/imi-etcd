@@ -5,7 +5,7 @@
   "description": "imi 框架 Etcd 组件。imi Etcd component.",
   "require": {
     "imiphp/imi-config-center": "2.1.x-dev",
-    "yurunsoft/yurun-http": "^4.3.0",
+    "yurunsoft/yurun-http": "^4.3",
     "ext-json": "*"
   },
   "require-dev": {
@@ -31,6 +31,10 @@
     }
   },
   "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    },
     "imi-config-center": {
       "type": "vcs",
       "url": "https://github.com/imiphp/imi-config-center"

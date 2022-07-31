@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Imi\Etcd\Client;
 
+use Yurun\Util\HttpRequest;
+
 class Client
 {
     // KV
@@ -52,12 +54,12 @@ class Client
     /**
      * @var Config
      */
-    protected $config;
+    public $config;
 
     /**
      * @var string
      */
-    protected $version;
+    protected $version = 'v3';
 
     /**
      * @var string
@@ -67,7 +69,7 @@ class Client
     /**
      * @var bool
      */
-    protected $pretty;
+    protected $pretty = false;
 
     /**
      * @var
@@ -115,18 +117,14 @@ class Client
     public function put(string $key, string $value, array $options = [])
     {
         $params = [
-            'key' => $key,
+            'key'   => $key,
             'value' => $value,
         ];
-
-        $params = $this->encode($params);
-        $options = $this->encode($options);
-        $body = $this->request(self::URI_PUT, $params, $options);
-        $body = $this->decodeBodyForFields(
-            $body,
-            'prev_kv',
-            ['key', 'value',]
-        );
+    
+        $params  = $this->encode( $params );
+        $options = $this->encode( $options );
+        $body    = $this->request( self::URI_PUT, $params, $options );
+        $body    = $this->decodeBodyForFields( $body, 'prev_kv', ['key', 'value',] );
 
         if (isset($body['prev_kv']) && $this->pretty) {
             return $this->convertFields($body['prev_kv']);
@@ -156,22 +154,22 @@ class Client
      */
     public function get(string $key, array $options = [])
     {
-        $params = [
+        $params  = [
             'key' => $key,
         ];
-        $params = $this->encode($params);
-        $options = $this->encode($options);
-        $body = $this->request(self::URI_RANGE, $params, $options);
-        $body = $this->decodeBodyForFields(
+        $params  = $this->encode( $params );
+        $options = $this->encode( $options );
+        $body    = $this->request( self::URI_RANGE, $params, $options );
+        $body    = $this->decodeBodyForFields(
             $body,
             'kvs',
-            ['key', 'value',]
+            [ 'key', 'value', ]
         );
-
-        if (isset($body['kvs']) && $this->pretty) {
-            return $this->convertFields($body['kvs']);
+    
+        if ( isset( $body['kvs'] ) && $this->pretty ) {
+            return $this->convertFields( $body['kvs'] );
         }
-
+    
         return $body;
     }
 
@@ -660,19 +658,20 @@ class Client
 
         $url = sprintf('%s://%s:%s/%s/%s', $this->config->getScheme(), $this->config->getHost(),
             $this->config->getPort(), $this->version, $uri);
-
-        $httpClient = new HttpClient($url);
+        
+        $httpClient = new HttpRequest();
 
         if ($this->config->isSsl()) {
-            $httpClient->setSslCertFile($this->config->getSslCert());
-            $httpClient->setSslKeyFile($this->config->getSslKey());
+            $httpClient->isVerifyCA = true;
+            $httpClient->sslCert($this->config->getSslCert());
+            $httpClient->sslKey($this->config->getSslKey());
         }
 
-        $httpClient->setTimeout($this->config->getTimeout());
-        $httpClient->setHeaders($header, true, false);
-        $response = $httpClient->postJson(json_encode($params));
+        $httpClient->timeout($this->config->getTimeout());
+        $httpClient = $httpClient->headers($header);
+        $response = $httpClient->post($url,json_encode($params));
 
-        $body = json_decode($response->getBody(), true);
+        $body = json_decode($response->body(), true);
         if ($this->pretty && isset($body['header'])) {
             unset($body['header']);
         }
@@ -737,7 +736,7 @@ class Client
         }
 
         $map = [];
-        foreach ($data as $index => $value) {
+        foreach ($data as $value) {
             $key = $value['key'];
             $map[$key] = $value['value'];
         }
