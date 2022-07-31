@@ -59,7 +59,7 @@ class Client
     /**
      * @var string
      */
-    protected $version = 'v3';
+    protected $version;
 
     /**
      * @var string
@@ -425,7 +425,7 @@ class Client
         ];
 
         $body = $this->request(self::URI_AUTH_ROLE_GET, $params);
-
+        
         $body = $this->decodeBodyForFields(
             $body,
             'perm',

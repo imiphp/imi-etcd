@@ -31,17 +31,17 @@ return [
         // 'mode'    => \Imi\ConfigCenter\Enum\Mode::PROCESS, // 进程模式
         'mode'    => env('IMI_CONFIG_CENTER_MODE', \Imi\ConfigCenter\Enum\Mode::PROCESS),
         'configs' => [
-            'nacos' => [
+            'etcd' => [
                 'driver'  => \Imi\Etcd\Config\EtcdConfigDriver::class,
                 // 客户端连接配置
                 'client'  => [
-                    'scheme'                => env('IMI_ETCD_HOST', 'http'), // 主机名
+                    'scheme'              => env('IMI_ETCD_HOST', 'http'), // 主机名
                     'host'                => env('IMI_ETCD_HOST', '127.0.0.1'), // 主机名
                     'port'                => env('IMI_ETCD_PORT', 2379), // 端口号
-                    'timeout'             => 60000, // 网络请求超时时间，单位：毫秒
-                    'ssl'                 => false, // 是否使用 ssl(https) 请求
-                    'version'             => 'v3', // v3 v2
-                    'pretty'              => 'true',
+                    'timeout'             => env('IMI_ETCD_TIMEOUT', 6000), // 网络请求超时时间，单位：毫秒
+                    'ssl'                 => env('IMI_ETCD_SSL', false), // 是否使用 ssl(https) 请求
+                    'version'             => env('IMI_ETCD_VERSION', 'v3alpha'), // v3 v3alpha v3beta v2
+                    'pretty'              => env('IMI_ETCD_PRETTY', false),
                     'sslCert'             => '',
                     'sslKey'              => ''
                 ],
@@ -55,7 +55,7 @@ return [
                 ],
                 // 配置项
                 'configs' => [
-                    'nacos' => [
+                    'etcd' => [
                         'key'   => 'imi-etcd-key1',
                         'group' => 'imi',
                     ],

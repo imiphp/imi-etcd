@@ -30,7 +30,7 @@ class IndexController extends HttpController
      */
     public function index()
     {
-        $this->response->getBody()->write('imi');
+        $this->response->getBody()->write('Etcd example');
 
         return $this->response;
     }
@@ -42,9 +42,9 @@ class IndexController extends HttpController
      */
     public function get()
     {
-        return [
-            'config' => Config::get('etcd'),
-        ];
+        $name = $this->request->get('name');
+        return $this->configCenter->getDriver( 'etcd')->get($name);
+    
     }
 
     /**
@@ -52,9 +52,11 @@ class IndexController extends HttpController
      *
      * @return mixed
      */
-    public function set(string $name, string $value, array $options = [])
+    public function set()
     {
         // prev_kv set value and return previous value
+        $name = $this->request->get('name');
+        $value = $this->request->get('value');
         $options = [
             'prev_kv' => true
         ];

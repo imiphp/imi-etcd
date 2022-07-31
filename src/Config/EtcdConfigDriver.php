@@ -18,6 +18,7 @@ class EtcdConfigDriver implements IEtcdConfigDriver
     
     protected string $name = '';
     
+    protected bool $watching = false;
     
     public function __construct ( string $name, array $config )
     {
@@ -51,11 +52,11 @@ class EtcdConfigDriver implements IEtcdConfigDriver
     
     public function get ( string $key, bool $enableCache = true, array $options = [] )
     {
-        if ( $enableCache ) {
-            return $this->configListener->get( $key, $options);
-        } else {
-            return $this->client->get( $key, $options ) ?: '';
-        }
+//        if ( $enableCache ) {
+//            return $this->configListener->get( $key, $options);
+//        } else {
+            return $this->client->get( $key, $options ) ?: [];
+//        }
     }
     
     public function delete ( $keys, array $options = [] ): void
@@ -75,17 +76,17 @@ class EtcdConfigDriver implements IEtcdConfigDriver
     
     public function startListner (): void
     {
-        $this->listening = true;
+        $this->watching = true;
     }
     
     public function stopListner (): void
     {
-        $this->listening = false;
+        $this->watching = false;
     }
     
     public function isListening (): bool
     {
-        return $this->listening;
+        return $this->watching;
     }
     
     public function isSupportServerPush (): bool
