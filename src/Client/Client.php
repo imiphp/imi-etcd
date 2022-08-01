@@ -69,7 +69,7 @@ class Client
     /**
      * @var bool
      */
-    protected $pretty = false;
+    public $pretty = false;
 
     /**
      * @var
@@ -171,6 +171,17 @@ class Client
         }
     
         return $body;
+    }
+    
+    /**
+     * 原始格式以json形式返回
+     * @param string $key
+     * @param array $options
+     * @return false|string
+     */
+    public function getRaw(string $key, array $options = [])
+    {
+        return json_encode($this->get($key,$options),JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
     }
 
     /**
