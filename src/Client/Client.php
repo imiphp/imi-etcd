@@ -69,7 +69,7 @@ class Client
     /**
      * @var bool
      */
-    public $pretty = false;
+    public $pretty = true;
 
     /**
      * @var

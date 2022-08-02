@@ -4,6 +4,9 @@ declare( strict_types=1 );
 
 namespace Imi\Etcd\Client;
 
+use Imi\Etcd\Listen\ConfigListener;
+use Imi\Etcd\Listen\ListenerConfig;
+
 class Config
 {
     /**
@@ -220,5 +223,16 @@ class Config
     public function setTimeout ( int $timeout ): void
     {
         $this->timeout = $timeout;
+    }
+    
+    public function getConfigListener ( ListenerConfig $listenerConfig ): ConfigListener
+    {
+        return new ConfigListener($this->getClient(), $listenerConfig);
+    
+    }
+    
+    public function getClient (): Client
+    {
+        return  new Client($this);
     }
 }
