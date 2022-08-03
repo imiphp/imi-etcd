@@ -53,29 +53,21 @@ abstract class BaseTest extends TestCase
     public function testSetAndGet(): void
     {
         $httpRequest = new HttpRequest();
-        $value = ['value' => uniqid('', true)];
+        $value = uniqid('', true);
         $response = $httpRequest->post(self::$httpHost . '/set', [
             'name'  => 'imi-etcd-key1',
-            'group' => 'imi',
-            'value' => json_encode($value),
-            'type'  => 'json',
+            'value' => $value,
         ]);
 
-        $cacheFileName = \dirname(__DIR__) . '/example/.runtime/config-cache/imi/imi-etcd-key1';
-        for ($i = 0; $i < 15; ++$i)
-        {
+        $cacheFileName = \dirname(__DIR__) . '/example/.runtime/config-cache/etcd/imi-etcd-key1';
+        for ($i = 0; $i < 15; ++$i) {
             sleep(1);
-            if (is_file($cacheFileName))
-            {
+            if (is_file($cacheFileName)) {
                 unlink($cacheFileName);
             }
             $response = $httpRequest->get(self::$httpHost . '/get');
-            if ([
-                'config' => $value,
-            ] === $response->json(true))
-            {
+            if ([ 'config' => $value ] === $response->json(true)) {
                 $this->assertTrue(true);
-
                 return;
             }
         }
