@@ -40,7 +40,7 @@ return [
                     'port'                => env('IMI_ETCD_PORT', 2379), // 端口号
                     'timeout'             => env('IMI_ETCD_TIMEOUT', 6000), // 网络请求超时时间，单位：毫秒
                     'ssl'                 => env('IMI_ETCD_SSL', false), // 是否使用 ssl(https) 请求
-                    'version'             => env('IMI_ETCD_VERSION', 'v3alpha'),
+                    'version'             => env('IMI_ETCD_VERSION', 'v3'),
                     /**
                      * v3 v3alpha v3beta v2
                      * etcd v3.2以及之前版本只使用[CLIENT-URL]/v3alpha/*。
