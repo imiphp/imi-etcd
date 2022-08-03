@@ -79,7 +79,7 @@ class Client
     /**
      * @var string|null auth token
      */
-    protected $token = null;
+    protected ?string $token = null;
 
     public function __construct( Config $config)
     {
@@ -88,12 +88,12 @@ class Client
         $this->pretty  = $config->isPretty();
     }
 
-    public function setToken($token)
+    public function setToken($token): void
     {
         $this->token = $token;
     }
 
-    public function clearToken()
+    public function clearToken(): void
     {
         $this->token = null;
     }
@@ -114,7 +114,7 @@ class Client
      *        bool   ignore_lease
      * @return array
      */
-    public function put(string $key, string $value, array $options = [])
+    public function put(string $key, string $value, array $options = []): array
     {
         $params = [
             'key'   => $key,
@@ -152,7 +152,7 @@ class Client
      *         int64  max_create_revision
      * @return array
      */
-    public function get(string $key, array $options = [])
+    public function get(string $key, array $options = []): array
     {
         $params  = [
             'key' => $key,
@@ -179,7 +179,7 @@ class Client
      * @param array $options
      * @return false|string
      */
-    public function getRaw(string $key, array $options = [])
+    public function getRaw(string $key, array $options = []): bool|string
     {
         return json_encode($this->get($key,$options),JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
     }
@@ -189,7 +189,7 @@ class Client
      *
      * @return array
      */
-    public function getAllKeys()
+    public function getAllKeys(): array
     {
         return $this->get("\0", ['range_end' => "\0"]);
     }
@@ -200,7 +200,7 @@ class Client
      * @param string $prefix
      * @return array
      */
-    public function getKeysWithPrefix(string $prefix)
+    public function getKeysWithPrefix(string $prefix): array
     {
         $prefix = trim($prefix);
         if (!$prefix) {
@@ -224,7 +224,7 @@ class Client
      *        bool   prev_kv
      * @return array
      */
-    public function del(string $key, array $options = [])
+    public function del(string $key, array $options = []): array
     {
         $params = [
             'key' => $key,
@@ -256,7 +256,7 @@ class Client
      *
      * @return array
      */
-    public function compaction(int $revision, $physical = false)
+    public function compaction(int $revision, $physical = false): array
     {
         $params = [
             'revision' => $revision,
@@ -281,7 +281,7 @@ class Client
      *                    If ID is set to 0, the lessor chooses an ID.
      * @return array
      */
-    public function grant(int $ttl, $id = 0)
+    public function grant(int $ttl, $id = 0): array
     {
         $params = [
             'TTL' => $ttl,
@@ -298,7 +298,7 @@ class Client
      *               all associated keys will be deleted.
      * @return array
      */
-    public function revoke(int $id)
+    public function revoke(int $id): ?array
     {
         $params = [
             'ID' => $id,
@@ -315,7 +315,7 @@ class Client
      * @param int $id ID is the lease ID for the lease to keep alive.
      * @return array
      */
-    public function keepAlive(int $id)
+    public function keepAlive(int $id): ?array
     {
         $params = [
             'ID' => $id,
@@ -340,7 +340,7 @@ class Client
      * @param bool|false $keys
      * @return array
      */
-    public function timeToLive(int $id, $keys = false)
+    public function timeToLive(int $id, $keys = false): ?array
     {
         $params = [
             'ID' => $id,
@@ -367,7 +367,7 @@ class Client
      *
      * @return array
      */
-    public function authEnable()
+    public function authEnable(): ?array
     {
         $body = $this->request(self::URI_AUTH_ENABLE);
         $this->clearToken();
@@ -380,7 +380,7 @@ class Client
      *
      * @return array
      */
-    public function authDisable()
+    public function authDisable(): ?array
     {
         $body = $this->request(self::URI_AUTH_DISABLE);
         $this->clearToken();
@@ -393,7 +393,7 @@ class Client
      * @param string $password
      * @return array
      */
-    public function authenticate(string $user, string $password)
+    public function authenticate(string $user, string $password): ?array
     {
         $params = [
             'name' => $user,
@@ -414,7 +414,7 @@ class Client
      * @param string $name
      * @return array
      */
-    public function addRole(string $name)
+    public function addRole(string $name): ?array
     {
         $params = [
             'name' => $name,
@@ -429,7 +429,7 @@ class Client
      * @param string $role
      * @return array
      */
-    public function getRole(string $role)
+    public function getRole(string $role): ?array
     {
         $params = [
             'role' => $role,
@@ -455,7 +455,7 @@ class Client
      * @param string $role
      * @return array
      */
-    public function deleteRole(string $role)
+    public function deleteRole(string $role): ?array
     {
         $params = [
             'role' => $role,
@@ -469,7 +469,7 @@ class Client
      *
      * @return array
      */
-    public function roleList()
+    public function roleList(): ?array
     {
         $body = $this->request(self::URI_AUTH_ROLE_LIST);
 
@@ -487,7 +487,7 @@ class Client
      * @param string $password
      * @return array
      */
-    public function addUser(string $user, string $password)
+    public function addUser(string $user, string $password): ?array
     {
         $params = [
             'name' => $user,
@@ -503,7 +503,7 @@ class Client
      * @param string $user
      * @return array
      */
-    public function getUser(string $user)
+    public function getUser(string $user): ?array
     {
         $params = [
             'name' => $user,
@@ -523,7 +523,7 @@ class Client
      * @param string $user
      * @return array
      */
-    public function deleteUser(string $user)
+    public function deleteUser(string $user): ?array
     {
         $params = [
             'name' => $user,
@@ -537,7 +537,7 @@ class Client
      *
      * @return array
      */
-    public function userList()
+    public function userList(): ?array
     {
         $body = $this->request(self::URI_AUTH_USER_LIST);
         if ($this->pretty && isset($body['users'])) {
@@ -554,7 +554,7 @@ class Client
      * @param string $password
      * @return array
      */
-    public function changeUserPassword(string $user, string $password)
+    public function changeUserPassword(string $user, string $password): ?array
     {
         $params = [
             'name' => $user,
@@ -573,7 +573,7 @@ class Client
      * @param string|null $rangeEnd
      * @return array
      */
-    public function grantRolePermission(string $role, int $permType, string $key, ?string $rangeEnd = null)
+    public function grantRolePermission(string $role, int $permType, string $key, ?string $rangeEnd = null): ?array
     {
         $params = [
             'name' => $role,
@@ -597,7 +597,7 @@ class Client
      * @param string|null $rangeEnd
      * @return array
      */
-    public function revokeRolePermission(string $role, string $key, ?string $rangeEnd = null)
+    public function revokeRolePermission(string $role, string $key, ?string $rangeEnd = null): ?array
     {
         $params = [
             'role' => $role,
@@ -617,7 +617,7 @@ class Client
      * @param string $role
      * @return array
      */
-    public function grantUserRole(string $user, string $role)
+    public function grantUserRole(string $user, string $role): ?array
     {
         $params = [
             'user' => $user,
@@ -634,7 +634,7 @@ class Client
      * @param string $role
      * @return array
      */
-    public function revokeUserRole(string $user, string $role)
+    public function revokeUserRole(string $user, string $role): ?array
     {
         $params = [
             'name' => $user,
@@ -695,7 +695,7 @@ class Client
      * @param array $data
      * @return array
      */
-    protected function encode(array $data)
+    protected function encode(array $data): array
     {
         foreach ($data as $key => $value) {
             if (is_string($value)) {
@@ -714,7 +714,7 @@ class Client
      * @param array  $fields  需要解码的字段
      * @return array
      */
-    protected function decodeBodyForFields(array $body, string $bodyKey, array $fields)
+    protected function decodeBodyForFields(array $body, string $bodyKey, array $fields): array
     {
         if (!isset($body[$bodyKey])) {
             return $body;
