@@ -35,7 +35,7 @@ return [
                 'driver'  => \Imi\Etcd\Config\EtcdConfigDriver::class,
                 // 客户端连接配置
                 'client'  => [
-                    'scheme'              => env('IMI_ETCD_HOST', 'http'), // 主机名
+                    'scheme'              => env('IMI_ETCD_SCHEME', 'http'), // 主机名
                     'host'                => env('IMI_ETCD_HOST', '127.0.0.1'), // 主机名
                     'port'                => env('IMI_ETCD_PORT', 2379), // 端口号
                     'timeout'             => env('IMI_ETCD_TIMEOUT', 6000), // 网络请求超时时间，单位：毫秒
