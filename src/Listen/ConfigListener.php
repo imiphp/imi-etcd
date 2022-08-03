@@ -34,11 +34,16 @@ class ConfigListener
         return $this->listeningLists[$key]['value'] ?? '';
     }
     
+    public function getParsed ( string $key ) : array
+    {
+        return json_decode($this->listeningLists[$key]['value'],true) ?? [];
+    }
+    
     public function addListener(string $key, ?callable $callback = null): void
     {
         try {
             $this->listeningLists[$key] = [
-                'value'    => $this->client->get( $key )[ $key ],
+                'value'    => '',
                 'callback' => $callback,
             ];
         }catch (\Throwable $th){
@@ -89,8 +94,7 @@ class ConfigListener
                 if ( isset( $this->listeningLists[ $key ]['callback'] ) ) {
                     $this->listeningLists[ $key ]['callback']( $this, $key);
                 }
-                
-                $this->saveCache($key,$res[ $key ]);
+                $this->saveCache($key,$this->listeningLists[ $key ]['value']);
             }
             
         }catch (\Throwable $th){

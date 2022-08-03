@@ -72,7 +72,7 @@ class EtcdConfigDriver implements IEtcdConfigDriver
     public function get ( string $key, bool $enableCache = true, array $options = [] )
     {
         if ($enableCache){
-            return $this->configListener->get($key);
+            return json_decode($this->configListener->get($key),true);
         }else{
             return $this->client->get( $key, $options ) ?: [];
         }
@@ -95,6 +95,7 @@ class EtcdConfigDriver implements IEtcdConfigDriver
                 'configKey'   => $imiConfigKey,
                 'key'         => $key,
                 'value'       => $listener->get($key),
+                'parsedValue' => $listener->getParsed($key),
                 'options'     => [
                     'listener' => $listener,
                 ],
