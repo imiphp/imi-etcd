@@ -54,27 +54,27 @@ class Client
     /**
      * @var Config
      */
-    public $config;
+    public Config $config;
 
     /**
      * @var string
      */
-    protected $version;
+    protected string $version;
 
     /**
      * @var string
      */
-    protected $host;
+    protected string $host;
 
     /**
      * @var bool
      */
-    public $pretty = true;
+    public bool $pretty = true;
 
     /**
-     * @var
+     * @var Client
      */
-    protected $client;
+    protected Client $client;
 
     /**
      * @var string|null auth token
@@ -88,7 +88,7 @@ class Client
         $this->pretty  = $config->isPretty();
     }
 
-    public function setToken($token): void
+    public function setToken(?string $token): void
     {
         $this->token = $token;
     }
@@ -740,7 +740,7 @@ class Client
         return $body;
     }
 
-    protected function convertFields(array $data)
+    protected function convertFields(array $data) :array
     {
         if (!isset($data[0])) {
             return $data['value'];
