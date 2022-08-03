@@ -21,11 +21,7 @@
 本项目可以使用composer安装，遵循psr-4自动加载规则，在你的 `composer.json` 中加入下面的内容:
 
 ```json
-{
-    "require": {
-        "imiphp/imi-etcd": "~2.1.0"
-    }
-}
+
 ```
 
 然后执行 `composer update` 安装。
@@ -46,13 +42,21 @@
                 'driver'  => \Imi\Etcd\Config\EtcdConfigDriver::class,
                 // 客户端连接配置
                 'client'  => [
-                    'scheme'              => 'http',
-                    'host'                => '127.0.0.1', // 主机名
-                    'port'                => 2379, // 端口号
-                    'timeout'             => 60000, // 网络请求超时时间，单位：毫秒
-                    'ssl'                 => false, // 是否使用 ssl(https) 请求
-                    'version'             => 'v3', // v3 v2
-                    'pretty'              => 'true',
+                    'scheme'              => env('IMI_ETCD_HOST', 'http'), // 主机名
+                    'host'                => env('IMI_ETCD_HOST', '127.0.0.1'), // 主机名
+                    'port'                => env('IMI_ETCD_PORT', 2379), // 端口号
+                    'timeout'             => env('IMI_ETCD_TIMEOUT', 6000), // 网络请求超时时间，单位：毫秒
+                    'ssl'                 => env('IMI_ETCD_SSL', false), // 是否使用 ssl(https) 请求
+                    'version'             => env('IMI_ETCD_VERSION', 'v3alpha'), /**
+                     * v3 v3alpha v3beta v2
+                     * etcd v3.2以及之前版本只使用[CLIENT-URL]/v3alpha/*。
+                        etcd v3.3使用[CLIENT-URL]/v3beta/*保持[CLIENT-URL]/v3alpha/*使用。
+                        etcd v3.4使用[CLIENT-URL]/v3/*保持[CLIENT-URL]/v3beta/*使用。
+                        [CLIENT-URL]/v3alpha/*被抛弃使用。
+                        etcd v3.5以及最新版本只使用[CLIENT-URL]/v3/*。
+                        [CLIENT-URL]/v3beta/*被抛弃使用。
+                     */
+                    'pretty'              => env('IMI_ETCD_PRETTY', true),
                     'sslCert'             => '',
                     'sslKey'              => ''
                 ]
