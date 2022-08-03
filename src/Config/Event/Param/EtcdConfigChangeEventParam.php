@@ -15,7 +15,8 @@ class EtcdConfigChangeEventParam extends ConfigChangeEventParam
     public function __construct(string $eventName, array $data = [], ?object $target = null)
     {
         parent::__construct($eventName, $data, $target);
-        $this->listener = $data['options']['listener'] ?? null;
+        $this->listener    = $data['options']['listener'] ?? null;
+        $this->parsedValue = json_decode( $data['value'], true );
     }
     
     public function getListener(): ?ConfigListener

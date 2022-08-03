@@ -53,10 +53,10 @@ abstract class BaseTest extends TestCase
     public function testSetAndGet(): void
     {
         $httpRequest = new HttpRequest();
-        $value = uniqid('', true);
+        $value = ['uniqid' => uniqid('', true)];
         $response = $httpRequest->post(self::$httpHost . '/set', [
             'name'  => 'imi-etcd-key1',
-            'value' => $value,
+            'value' => json_encode($value,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE),
         ]);
 
         $cacheFileName = \dirname(__DIR__) . '/example/.runtime/config-cache/etcd/imi-etcd-key1';

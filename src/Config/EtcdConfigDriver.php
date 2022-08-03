@@ -89,18 +89,17 @@ class EtcdConfigDriver implements IEtcdConfigDriver
     
     public function listen ( string $imiConfigKey, string $key, array $options = [] ): void
     {
-        $this->configListener->addListener($key);
-//        $this->configListener->addListener($key,function (ConfigListener $listener, string $key) use ($imiConfigKey) {
-//            Event::trigger('IMI.CONFIG_CENTER.CONFIG.CHANGE', [
-//                'driver'      => $this,
-//                'configKey'   => $imiConfigKey,
-//                'key'         => $key,
-//                'value'       => $listener->get($key),
-//                'options'     => [
-//                    'listener' => $listener,
-//                ],
-//            ], $this, EtcdConfigChangeEventParam::class);
-//        });
+        $this->configListener->addListener($key,function (ConfigListener $listener, string $key) use ($imiConfigKey) {
+            Event::trigger('IMI.CONFIG_CENTER.CONFIG.CHANGE', [
+                'driver'      => $this,
+                'configKey'   => $imiConfigKey,
+                'key'         => $key,
+                'value'       => $listener->get($key),
+                'options'     => [
+                    'listener' => $listener,
+                ],
+            ], $this, EtcdConfigChangeEventParam::class);
+        });
     }
     
     public function polling (): void
