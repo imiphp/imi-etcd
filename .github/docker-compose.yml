@@ -1,0 +1,28 @@
+version: "3.4"
+volumes:
+  shared-volume:
+services:
+  etcd:
+    container_name: "etcd"
+    image: bitnami/etcd:latest
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+    ports:
+      - 2379:2379
+      - 2380:2380
+    networks:
+      - app-tier
+  swoole:
+    container_name: "swoole"
+    environment:
+      IMI_NACOS_HOST: ${IMI_NACOS_HOST}
+    build:
+      context: .
+      dockerfile: swoole.dockerfile
+      args:
+        SWOOLE_DOCKER_VERSION: ${SWOOLE_DOCKER_VERSION}
+    volumes:
+      - "${GITHUB_WORKSPACE}:/imi:rw"
+    working_dir: /imi
+    command: tail -f /dev/null
