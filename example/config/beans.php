@@ -41,7 +41,7 @@ return [
                     'timeout'             => env('IMI_ETCD_TIMEOUT', 6000), // 网络请求超时时间，单位：毫秒
                     'ssl'                 => env('IMI_ETCD_SSL', false), // 是否使用 ssl(https) 请求
                     'version'             => env('IMI_ETCD_VERSION', 'v3alpha'), // v3 v3alpha v3beta v2
-                    'pretty'              => env('IMI_ETCD_PRETTY', false),
+                    'pretty'              => env('IMI_ETCD_PRETTY', true),
                     'sslCert'             => '',
                     'sslKey'              => ''
                 ],
@@ -56,10 +56,9 @@ return [
                 // 配置项
                 'configs' => [
                     'etcd' => [
-                        'key'   => 'imi-etcd-key1',
-                        'group' => 'imi',
-                    ],
-                ],
+                        'key'  => 'imi-etcd-key1'
+                    ]
+                ]
             ],
         ],
     ],
