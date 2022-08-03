@@ -4,6 +4,7 @@ declare( strict_types=1 );
 namespace Imi\Etcd\Listen;
 
 use Imi\Etcd\Client\Client;
+use Imi\Etcd\Exception\EtcdApiException;
 use Imi\Etcd\Exception\EtcdException;
 use Imi\Log\Log;
 use Psr\Log\LogLevel;
@@ -41,15 +42,10 @@ class ConfigListener
     
     public function addListener(string $key, ?callable $callback = null): void
     {
-        try {
             $this->listeningLists[$key] = [
                 'value'    => '',
                 'callback' => $callback,
             ];
-        }catch (\Throwable $th){
-            Log::log(LogLevel::ERROR, sprintf('Etcd addListener failed: %s', $th));
-        }
-        
     }
     
     public function removeListener(string $key): void
@@ -97,8 +93,8 @@ class ConfigListener
                 $this->saveCache($key,$this->listeningLists[ $key ]['value']);
             }
             
-        }catch (\Throwable $th){
-            Log::log(LogLevel::ERROR, sprintf('Etcd listen failed: %s', $th));
+        }catch (EtcdApiException $e){
+            Log::log(LogLevel::ERROR, sprintf('Etcd listen failed: %s', $e));
             usleep($this->listenerConfig->getFailedTimeout() * 1000);
         }
      
