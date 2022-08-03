@@ -53,7 +53,7 @@ class EtcdConfigDriver implements IEtcdConfigDriver
      */
     public function pull ( bool $enableCache = true ): void
     {
-        $this->configListener->pull();
+        $this->configListener->pull(!$enableCache);
     }
     
     /**
