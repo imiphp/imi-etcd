@@ -645,14 +645,14 @@ class Client
     }
 
     // endregion auth
-
+    
     /**
      * @param string $uri
      * @param array $params
      * @param array $options
-     * @return array
+     * @return array|null
      */
-    public function request(string $uri, array $params = [], array $options = []): array
+    public function request(string $uri, array $params = [], array $options = []): ?array
     {
         if ($options) {
             $params = array_merge($params, $options);
