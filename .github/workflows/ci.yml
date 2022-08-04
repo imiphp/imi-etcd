@@ -19,7 +19,7 @@ jobs:
       - name: Prepare
         run: |
           docker-compose -f ./.github/docker-compose.yml up -d
-          docker exec etcd
+          docker exec etcd etcd
           docker exec swoole php -v
           docker exec swoole php -m
           docker exec swoole php --ri swoole
