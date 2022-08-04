@@ -6,10 +6,12 @@ services:
     container_name: "etcd"
     image: bitnami/etcd:3
     environment:
-      - "ETCD_ADVERTISE_CLIENT_URLS=http://127.0.0.1:2379"
-      - "ETCD_LISTEN_CLIENT_URLS=http://127.0.0.1:2379"
-      #参数指不用密码可以连接
+      - "ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379"
+      - "ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379"
+      - "ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380"
+      - "ETCD_INITIAL_ADVERTISE_PEER_URLS=http://0.0.0.0:2380"
       - "ALLOW_NONE_AUTHENTICATION=yes"
+      - "ETCD_INITIAL_CLUSTER=node1=http://0.0.0.0:2380"
     ports:
       - "2379:2379"
       - "2380:2380"
@@ -21,7 +23,7 @@ services:
       context: .
       dockerfile: swoole.dockerfile
       args:
-        SWOOLE_DOCKER_VERSION: 4.8
+        SWOOLE_DOCKER_VERSION: ${SWOOLE_DOCKER_VERSION}
     volumes:
       - "${GITHUB_WORKSPACE}:/imi:rw"
     working_dir: /imi
