@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: swoole.dockerfile
       args:
-        SWOOLE_DOCKER_VERSION: ${SWOOLE_DOCKER_VERSION}
+        SWOOLE_DOCKER_VERSION: 4.8
     volumes:
       - "${GITHUB_WORKSPACE}:/imi:rw"
     working_dir: /imi
