@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Imi\Etcd\Client;
 
+use Imi\Etcd\Exception\EtcdApiException;
 use Yurun\Util\HttpRequest;
 
 class Client
@@ -651,6 +652,7 @@ class Client
      * @param array $params
      * @param array $options
      * @return array|null
+     * @throws EtcdApiException
      */
     public function request(string $uri, array $params = [], array $options = []): ?array
     {
@@ -679,9 +681,12 @@ class Client
         }
 
         $httpClient->timeout($this->config->getTimeout());
-        $httpClient = $httpClient->headers($header);
-        $response = $httpClient->post($url,json_encode($params));
-
+        $httpClient = $httpClient->headers( $header );
+        $response   = $httpClient->post( $url, json_encode( $params ) );
+        // request failed
+        if ( !$response->success ) {
+            throw new EtcdApiException( sprintf( 'Request failed [%d] %s. Request method[%s], url[%s], header:[%s], params:[%s]', $response->errno(), $response->error(), 'POST', $url, json_encode( $header, \JSON_PRETTY_PRINT ), json_encode( $params, \JSON_PRETTY_PRINT ) ) );
+        }
         $body = json_decode($response->body(), true);
         if ($this->pretty && isset($body['header'])) {
             unset($body['header']);
