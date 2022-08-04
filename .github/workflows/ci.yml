@@ -12,7 +12,7 @@ jobs:
         swoole: [php8.1, 4.8-php8.1, 4.8-php8.0, 4.8-php7.4]
     env:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
-      IMI_ETCD_HOST: localhost
+      IMI_ETCD_HOST: 127.0.0.1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
