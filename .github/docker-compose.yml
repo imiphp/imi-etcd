@@ -6,7 +6,6 @@ services:
     container_name: "etcd"
     image: bitnami/etcd:3
     environment:
-        MODE: standalone
       - "ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379"
       - "ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379"
       - "ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380"
