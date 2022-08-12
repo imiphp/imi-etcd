@@ -113,9 +113,9 @@ class Client
      *        bool   prev_kv
      *        bool   ignore_value
      *        bool   ignore_lease
-     * @return mixed
+     * @return array
      */
-    public function put(string $key, string $value, array $options = []): mixed
+    public function put(string $key, string $value, array $options = []): array
     {
         $params = [
             'key'   => $key,
@@ -151,9 +151,9 @@ class Client
      *         int64  max_mod_revision
      *         int64  min_create_revision
      *         int64  max_create_revision
-     * @return mixed
+     * @return array
      */
-    public function get(string $key, array $options = []): mixed
+    public function get(string $key, array $options = []): array
     {
         $params  = [
             'key' => $key,
@@ -178,9 +178,8 @@ class Client
      * 原始格式以json形式返回
      * @param string $key
      * @param array $options
-     * @return mixed
      */
-    public function getRaw(string $key, array $options = []): mixed
+    public function getRaw(string $key, array $options = [])
     {
         return json_encode($this->get($key,$options),JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
     }
@@ -745,13 +744,15 @@ class Client
         return $body;
     }
 
-    protected function convertFields(array $data) : mixed
+    protected function convertFields(array $data) : array
     {
+        $map = [];
+        
         if (!isset($data[0])) {
-            return $data['value'];
+             $map[$data['key']] = $data['value'];
+             return $map;
         }
 
-        $map = [];
         foreach ($data as $value) {
             $key = $value['key'];
             $map[$key] = $value['value'];

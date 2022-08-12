@@ -29,8 +29,6 @@ class ConfigListener
     {
         $listeningLists = $this->listeningLists;
         foreach ($listeningLists as $key => $value) {
-            
-    
             try {
                 if ( $force || !$this->loadCache( $key, $this->listenerConfig->getFileCacheTime() ) ) {
                     $res                                   = $this->client->get( $key );
