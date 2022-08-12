@@ -325,9 +325,7 @@ class Client
 
         if (isset($body['keys']))
         {
-            $body['keys'] = array_map(function ($value) {
-                return base64_decode($value);
-            }, $body['keys']);
+            $body['keys'] = array_map(fn ($value) => base64_decode($value), $body['keys']);
         }
 
         return $body;
