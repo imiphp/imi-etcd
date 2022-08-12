@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace Imi\Etcd\Config;
 
@@ -15,81 +15,84 @@ use Imi\Event\Event;
 class EtcdConfigDriver implements IEtcdConfigDriver
 {
     protected Client $client;
-    
+
     protected array $config = [];
-    
+
     protected string $name = '';
-    
+
     protected bool $listening = false;
-    
+
     protected ConfigListener $configListener;
-    
-    public function __construct ( string $name, array $config )
+
+    public function __construct(string $name, array $config)
     {
         $this->config = $config;
-        $this->name   = $name;
-        $this->client = new Client( new Config( $config['client'] ) );
-    
-        $listenerConfig       = new ListenerConfig( $config['listener'] ?? [] );
+        $this->name = $name;
+        $this->client = new Client(new Config($config['client']));
+
+        $listenerConfig = new ListenerConfig($config['listener'] ?? []);
         // 监听配置
-        $this->configListener = $this->client->config->getConfigListener( $listenerConfig );
+        $this->configListener = $this->client->config->getConfigListener($listenerConfig);
     }
-    
-    public function getName (): string
+
+    public function getName(): string
     {
         return $this->name;
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public function push ( string $key, string $value, array $options = [] ): void
+    public function push(string $key, string $value, array $options = []): void
     {
-        $this->client->put( $key, $value, $options );
+        $this->client->put($key, $value, $options);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public function pull ( bool $enableCache = true ): void
+    public function pull(bool $enableCache = true): void
     {
         $this->configListener->pull(!$enableCache);
     }
-    
+
     /**
      * 从配置中心获取配置原始数据.
      */
-    public function getRaw ( string $key, bool $enableCache = true, array $options = [] ): ?string
+    public function getRaw(string $key, bool $enableCache = true, array $options = []): ?string
     {
-        return $this->client->getRaw( $key, $options ) ?: '';
+        return $this->client->getRaw($key, $options) ?: '';
     }
-    
+
     /**
      * 从配置中心获取配置处理后的数据.
-     * $enableCache 是否从缓存中取出
+     * $enableCache 是否从缓存中取出.
+     *
      * @return mixed
      */
-    public function get ( string $key, bool $enableCache = true, array $options = [] )
+    public function get(string $key, bool $enableCache = true, array $options = [])
     {
-        if ($enableCache){
-            return json_decode($this->configListener->get($key),true);
-        }else{
-            return $this->client->get( $key, $options ) ?: [];
+        if ($enableCache)
+        {
+            return json_decode($this->configListener->get($key), true);
+        }
+        else
+        {
+            return $this->client->get($key, $options) ?: [];
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public function delete ( $keys, array $options = [] ): void
+    public function delete($keys, array $options = []): void
     {
-        $this->client->del( $keys, $options );
+        $this->client->del($keys, $options);
     }
 
-    
-    public function listen ( string $imiConfigKey, string $key, array $options = [] ): void
+    public function listen(string $imiConfigKey, string $key, array $options = []): void
     {
-        $this->configListener->addListener($key,function (ConfigListener $listener, string $key) use ($imiConfigKey) {
+        $this->configListener->addListener($key, function (ConfigListener $listener, string $key) use ($imiConfigKey) {
             Event::trigger('IMI.CONFIG_CENTER.CONFIG.CHANGE', [
                 'driver'      => $this,
                 'configKey'   => $imiConfigKey,
@@ -102,41 +105,38 @@ class EtcdConfigDriver implements IEtcdConfigDriver
             ], $this, EtcdConfigChangeEventParam::class);
         });
     }
-    
-    public function polling (): void
+
+    public function polling(): void
     {
         $this->configListener->polling();
     }
-    
-    public function startListner (): void
+
+    public function startListner(): void
     {
         $this->listening = true;
         $this->configListener->start();
     }
-    
-    public function stopListner (): void
+
+    public function stopListner(): void
     {
         $this->listening = false;
         $this->configListener->stop();
-    
     }
-    
-    public function isListening (): bool
+
+    public function isListening(): bool
     {
         return $this->listening;
     }
-    
-    
-    public function isSupportServerPush (): bool
+
+    public function isSupportServerPush(): bool
     {
         return false;
     }
-    
+
     /**
-     * 获取 etcd 客户端
-     * @return Client
+     * 获取 etcd 客户端.
      */
-    public function getOriginClient (): Client
+    public function getOriginClient(): Client
     {
         return $this->client;
     }
