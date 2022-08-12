@@ -8,19 +8,16 @@ services:
     environment:
       - "ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379"
       - "ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379"
-      - "ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380"
-      - "ETCD_INITIAL_ADVERTISE_PEER_URLS=http://0.0.0.0:2380"
       - "ALLOW_NONE_AUTHENTICATION=yes"
-      - "ETCD_INITIAL_CLUSTER=node1=http://0.0.0.0:2380"
     ports:
       - "2379:2379"
       - "2380:2380"
     healthcheck:
-          test: [ "CMD-SHELL", "curl -X GET 'http://127.0.0.1:2379/health' | grep '{'" ]
-          interval: 3s
-          timeout: 3s
-          retries: 30
-          start_period: 5s
+      test: [ "CMD-SHELL", "curl -X GET 'http://127.0.0.1:2379/health' | grep '{'" ]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
   swoole:
     container_name: "swoole"
     environment:
