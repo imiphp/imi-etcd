@@ -113,9 +113,9 @@ class Client
      *        bool   prev_kv
      *        bool   ignore_value
      *        bool   ignore_lease
-     * @return array
+     * @return mixed
      */
-    public function put(string $key, string $value, array $options = []): array
+    public function put(string $key, string $value, array $options = []): mixed
     {
         $params = [
             'key'   => $key,
@@ -151,9 +151,9 @@ class Client
      *         int64  max_mod_revision
      *         int64  min_create_revision
      *         int64  max_create_revision
-     * @return array
+     * @return mixed
      */
-    public function get(string $key, array $options = []): array
+    public function get(string $key, array $options = []): mixed
     {
         $params  = [
             'key' => $key,
@@ -745,7 +745,7 @@ class Client
         return $body;
     }
 
-    protected function convertFields(array $data) :array
+    protected function convertFields(array $data) : mixed
     {
         if (!isset($data[0])) {
             return $data['value'];
