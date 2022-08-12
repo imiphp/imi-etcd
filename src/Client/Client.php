@@ -178,9 +178,9 @@ class Client
      * 原始格式以json形式返回
      * @param string $key
      * @param array $options
-     * @return false|string
+     * @return mixed
      */
-    public function getRaw(string $key, array $options = []): bool|string
+    public function getRaw(string $key, array $options = []): mixed
     {
         return json_encode($this->get($key,$options),JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
     }
