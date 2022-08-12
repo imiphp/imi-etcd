@@ -9,40 +9,40 @@ use Yurun\Util\HttpRequest;
 class Client
 {
     // KV
-    public const URI_PUT          = 'kv/put';
-    public const URI_RANGE        = 'kv/range';
+    public const URI_PUT = 'kv/put';
+    public const URI_RANGE = 'kv/range';
     public const URI_DELETE_RANGE = 'kv/deleterange';
-    public const URI_TXN          = 'kv/txn';
-    public const URI_COMPACTION   = 'kv/compaction';
+    public const URI_TXN = 'kv/txn';
+    public const URI_COMPACTION = 'kv/compaction';
     
     // Lease
-    public const URI_GRANT      = 'lease/grant';
-    public const URI_REVOKE     = 'kv/lease/revoke';
-    public const URI_KEEPALIVE  = 'lease/keepalive';
+    public const URI_GRANT = 'lease/grant';
+    public const URI_REVOKE = 'kv/lease/revoke';
+    public const URI_KEEPALIVE = 'lease/keepalive';
     public const URI_TIMETOLIVE = 'kv/lease/timetolive';
     
     // Role
-    public const URI_AUTH_ROLE_ADD    = 'auth/role/add';
-    public const URI_AUTH_ROLE_GET    = 'auth/role/get';
+    public const URI_AUTH_ROLE_ADD = 'auth/role/add';
+    public const URI_AUTH_ROLE_GET = 'auth/role/get';
     public const URI_AUTH_ROLE_DELETE = 'auth/role/delete';
-    public const URI_AUTH_ROLE_LIST   = 'auth/role/list';
+    public const URI_AUTH_ROLE_LIST = 'auth/role/list';
     
     // Authenticate
-    public const URI_AUTH_ENABLE       = 'auth/enable';
-    public const URI_AUTH_DISABLE      = 'auth/disable';
+    public const URI_AUTH_ENABLE = 'auth/enable';
+    public const URI_AUTH_DISABLE = 'auth/disable';
     public const URI_AUTH_AUTHENTICATE = 'auth/authenticate';
     
     // User
-    public const URI_AUTH_USER_ADD             = 'auth/user/add';
-    public const URI_AUTH_USER_GET             = 'auth/user/get';
-    public const URI_AUTH_USER_DELETE          = 'auth/user/delete';
+    public const URI_AUTH_USER_ADD = 'auth/user/add';
+    public const URI_AUTH_USER_GET = 'auth/user/get';
+    public const URI_AUTH_USER_DELETE = 'auth/user/delete';
     public const URI_AUTH_USER_CHANGE_PASSWORD = 'auth/user/changepw';
-    public const URI_AUTH_USER_LIST            = 'auth/user/list';
+    public const URI_AUTH_USER_LIST = 'auth/user/list';
     
-    public const URI_AUTH_ROLE_GRANT  = 'auth/role/grant';
+    public const URI_AUTH_ROLE_GRANT = 'auth/role/grant';
     public const URI_AUTH_ROLE_REVOKE = 'auth/role/revoke';
     
-    public const URI_AUTH_USER_GRANT  = 'auth/user/grant';
+    public const URI_AUTH_USER_GRANT = 'auth/user/grant';
     public const URI_AUTH_USER_REVOKE = 'auth/user/revoke';
     
     
