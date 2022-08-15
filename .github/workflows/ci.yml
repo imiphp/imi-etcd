@@ -15,6 +15,7 @@ jobs:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
       ETCD_VERSION: ${{ matrix.etcd }}
       IMI_ETCD_HOST: etcd
+      IMI_ETCD_VERSION: 'v3'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -51,6 +52,7 @@ jobs:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
       ETCD_VERSION: ${{ matrix.etcd }}
       IMI_ETCD_HOST: ETCD
+      IMI_ETCD_VERSION: 'v3'
     steps:
       - name: Checkout
         uses: actions/checkout@v2

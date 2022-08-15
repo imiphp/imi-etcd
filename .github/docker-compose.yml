@@ -22,6 +22,7 @@ services:
     container_name: "swoole"
     environment:
       IMI_ETCD_HOST: ${IMI_ETCD_HOST}
+      IMI_ETCD_VERSION: ${IMI_ETCD_VERSION}
     build:
       context: .
       dockerfile: swoole.dockerfile
