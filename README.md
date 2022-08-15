@@ -4,7 +4,7 @@
 [![Latest Version](https://img.shields.io/packagist/v/imiphp/imi-etcd.svg)](https://packagist.org/packages/imiphp/imi-etcd)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.4-brightgreen.svg)](https://secure.php.net/)
 [![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.8.0-brightgreen.svg)](https://github.com/swoole/swoole-src)
-[![IMI License](https://img.shields.io/github/license/imiphp/imi-etcd.svg)](https://github.com/imiphp/imi-etcd/blob/master/LICENSE)
+[![IMI License](https://img.shields.io/github/license/imiphp/imi-etcd.svg)](https://github.com/imiphp/imi-etcd/blob/main/LICENSE)
 
 ## 介绍
 
