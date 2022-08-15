@@ -4,7 +4,7 @@ volumes:
 services:
   etcd:
     container_name: "etcd"
-    image: bitnami/etcd:3
+    image: bitnami/etcd:${ETCD_VERSION}
     environment:
       - "ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379"
       - "ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379"
