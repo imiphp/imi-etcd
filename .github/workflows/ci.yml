@@ -80,9 +80,9 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
-        matrix:
-          swoole: [ 5.0-php8.1 ]
-          etcd: [3.3]
+      matrix:
+        swoole: [ 5.0-php8.1 ]
+        etcd: [3.3]
     env:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
       ETCD_VERSION: ${{ matrix.etcd }}
