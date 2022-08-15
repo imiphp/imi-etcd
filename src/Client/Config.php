@@ -32,7 +32,7 @@ class Config
     /**
      * 是否只获取返回结果.
      */
-    protected bool $pretty = false;
+    protected bool $pretty = true;
 
     protected bool $ssl = false;
 
@@ -49,21 +49,21 @@ class Config
     /**
      * timeout.
      */
-    protected int $timeout = 30;
+    protected int $timeout = 300;
 
     public function __construct(array $config = [])
     {
         if (!empty($config))
         {
-            $this->setHost($config['host']);
-            $this->setPort($config['port']);
-            $this->setScheme($config['scheme']);
-            $this->setSsl($config['ssl']);
-            $this->setVersion($config['version']);
-            $this->setTimeout($config['timeout']);
-            $this->setPretty($config['pretty']);
-            $this->setSslCert($config['sslCert']);
-            $this->setSslKey($config['sslKey']);
+            $this->setHost($config['host'] ?? $this->host);
+            $this->setPort($config['port'] ?? $this->port);
+            $this->setScheme($config['scheme'] ?? $this->scheme);
+            $this->setSsl($config['ssl'] ?? $this->ssl);
+            $this->setVersion($config['version'] ?? $this->version);
+            $this->setTimeout($config['timeout'] ?? $this->timeout);
+            $this->setPretty($config['pretty'] ?? $this->pretty);
+            $this->setSslCert($config['sslCert'] ?? $this->sslCert);
+            $this->setSslKey($config['sslKey'] ?? $this->sslKey);
         }
     }
 
