@@ -107,7 +107,7 @@ jobs:
           require-status: running
           require-healthy: true
       - name: Test
-          run: docker exec swoole composer test
+        run: docker exec swoole composer test
       - name: Print logs
-          if: failure()
-          run: cat example/.runtime/logs/*.log
+        if: failure()
+        run: cat example/.runtime/logs/*.log
