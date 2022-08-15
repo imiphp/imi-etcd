@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace app\ApiServer\Controller;
 
 use Imi\Aop\Annotation\Inject;
-use Imi\App;
 use Imi\Config;
 use Imi\ConfigCenter\ConfigCenter;
 use Imi\Controller\HttpController;
@@ -46,7 +45,6 @@ class IndexController extends HttpController
         return [
             'config' => Config::get('etcd'),
         ];
-    
     }
 
     /**
@@ -54,11 +52,11 @@ class IndexController extends HttpController
      *
      * @return mixed
      */
-    public function set(string $name,string $value)
+    public function set(string $name, string $value)
     {
         // prev_kv set value and return previous value
         $options = [
-            'prev_kv' => true
+            'prev_kv' => true,
         ];
         $this->configCenter->getDriver('etcd')->push($name, $value, $options);
     }
