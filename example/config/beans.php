@@ -52,7 +52,7 @@ return [
                      */
                     'pretty'              => env('IMI_ETCD_PRETTY', true),
                     'sslCert'             => '',
-                    'sslKey'              => ''
+                    'sslKey'              => '',
                 ],
                 // 监听器配置
                 'listener' => [
@@ -65,9 +65,9 @@ return [
                 // 配置项
                 'configs' => [
                     'etcd' => [
-                        'key'  => 'imi-etcd-key1'
-                    ]
-                ]
+                        'key'  => 'imi-etcd-key1',
+                    ],
+                ],
             ],
         ],
     ],
