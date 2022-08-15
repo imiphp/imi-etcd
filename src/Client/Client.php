@@ -56,8 +56,6 @@ class Client
 
     protected string $version;
 
-    protected string $host;
-
     public bool $pretty = true;
 
     protected Client $client;
