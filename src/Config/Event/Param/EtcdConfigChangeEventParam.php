@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Imi\Etcd\Config\Event\Param;
 
 use Imi\ConfigCenter\Event\Param\ConfigChangeEventParam;
-use Imi\Etcd\Listen\ConfigListener;
+use Imi\Etcd\Listener\ConfigListener;
 
 class EtcdConfigChangeEventParam extends ConfigChangeEventParam
 {

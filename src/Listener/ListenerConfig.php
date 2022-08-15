@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Imi\Etcd\Listen;
+namespace Imi\Etcd\Listener;
 
 class ListenerConfig
 {

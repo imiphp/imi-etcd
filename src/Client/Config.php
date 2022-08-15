@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Imi\Etcd\Client;
 
-use Imi\Etcd\Listen\ConfigListener;
-use Imi\Etcd\Listen\ListenerConfig;
+use Imi\Etcd\Listener\ConfigListener;
+use Imi\Etcd\Listener\ListenerConfig;
 
 class Config
 {

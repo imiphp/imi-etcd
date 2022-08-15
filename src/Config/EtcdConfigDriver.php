@@ -8,8 +8,8 @@ use Imi\Etcd\Client\Client;
 use Imi\Etcd\Client\Config;
 use Imi\Etcd\Config\Contract\IEtcdConfigDriver;
 use Imi\Etcd\Config\Event\Param\EtcdConfigChangeEventParam;
-use Imi\Etcd\Listen\ConfigListener;
-use Imi\Etcd\Listen\ListenerConfig;
+use Imi\Etcd\Listener\ConfigListener;
+use Imi\Etcd\Listener\ListenerConfig;
 use Imi\Event\Event;
 
 class EtcdConfigDriver implements IEtcdConfigDriver
