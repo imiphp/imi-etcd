@@ -75,7 +75,7 @@ jobs:
         if: failure()
         run: cat example/.runtime/logs/*.log
 
-  etcd3.3:
+  etcd33:
     name: Linux Swoole-${{ matrix.swoole }} Etcd-3.3
     runs-on: ubuntu-20.04
     strategy:
