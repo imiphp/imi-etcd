@@ -56,9 +56,9 @@ jobs:
             etcd_url_version: "v3beta"
     env:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
-      ETCD_VERSION: ${{ matrix.etcd }}
+      ETCD_VERSION: ${{ matrix.etcd.version }}
       IMI_ETCD_HOST: ETCD
-      IMI_ETCD_VERSION: "v3"
+      IMI_ETCD_VERSION: ${{ matrix.etcd.etcd_url_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
