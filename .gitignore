@@ -1,1 +1,9 @@
 /.idea/
+vendor
+composer.lock
+/ide-helper
+.runtime
+*.log
+*.pid
+*.cache
+/.vscode
