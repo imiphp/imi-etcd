@@ -15,7 +15,7 @@ jobs:
             etcd_url_version: "v3"
     env:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
-      ETCD_VERSION: ${{ matrix.etcd }}
+      ETCD_VERSION: ${{ matrix.etcd.version }}
       IMI_ETCD_HOST: etcd
       IMI_ETCD_VERSION: ${{ matrix.etcd.etcd_url_version }}
     steps:
