@@ -2,7 +2,7 @@
     "name": "imiphp/imi-etcd",
     "type": "library",
     "license": "MulanPSL-2.0",
-    "description": "imi 框架 Etcd 组件。imi Etcd component.",
+    "description": "imi 框架 etcd 组件。imi etcd component.",
     "require": {
         "imiphp/imi-config-center": "2.1.x-dev",
         "yurunsoft/yurun-http": "^4.3",
