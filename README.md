@@ -4,7 +4,7 @@
 [![Latest Version](https://img.shields.io/packagist/v/imiphp/imi-etcd.svg)](https://packagist.org/packages/imiphp/imi-etcd)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.4-brightgreen.svg)](https://secure.php.net/)
 [![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.8.0-brightgreen.svg)](https://github.com/swoole/swoole-src)
-[![IMI License](https://img.shields.io/github/license/imiphp/imi-etcd.svg)](https://github.com/imiphp/imi-etcd/blob/main/LICENSE)
+[![imi License](https://img.shields.io/badge/license-MulanPSL%202.0-brightgreen.svg)](https://github.com/imiphp/imi-etcd/blob/2.1/LICENSE)
 
 ## 介绍
 
@@ -50,11 +50,11 @@
                     'version'             => env('IMI_ETCD_VERSION', 'v3'), /**
                      * v3 v3alpha v3beta v2
                      * etcd v3.2以及之前版本只使用[CLIENT-URL]/v3alpha/*。
-                        etcd v3.3使用[CLIENT-URL]/v3beta/*保持[CLIENT-URL]/v3alpha/*使用。
-                        etcd v3.4使用[CLIENT-URL]/v3/*保持[CLIENT-URL]/v3beta/*使用。
-                        [CLIENT-URL]/v3alpha/*被抛弃使用。
-                        etcd v3.5以及最新版本只使用[CLIENT-URL]/v3/*。
-                        [CLIENT-URL]/v3beta/*被抛弃使用。
+                     * etcd v3.3使用[CLIENT-URL]/v3beta/*保持[CLIENT-URL]/v3alpha/*使用。
+                     * etcd v3.4使用[CLIENT-URL]/v3/*保持[CLIENT-URL]/v3beta/*使用。
+                     * [CLIENT-URL]/v3alpha/*被抛弃使用。
+                     * etcd v3.5以及最新版本只使用[CLIENT-URL]/v3/*。
+                     * [CLIENT-URL]/v3beta/*被抛弃使用。
                      */
                     'pretty'              => env('IMI_ETCD_PRETTY', true),
                     'sslCert'             => '',
@@ -66,17 +66,16 @@
 ]
 ```
 
-
 ## 免费技术支持
 
 QQ群：17916227 [![点击加群](https://pub.idqqimg.com/wpa/images/group.png "点击加群")](https://jq.qq.com/?_wv=1027&k=5wXf4Zq)，如有问题会有人解答和修复。
 
 ## 运行环境
 
-- [PHP](https://php.net/) >= 7.4
-- [Composer](https://getcomposer.org/) >= 2.0
-- [Swoole](https://www.swoole.com/) >= 4.8.0
-- [imi](https://www.imiphp.com/) >= 2.1
+* [PHP](https://php.net/) >= 7.4
+* [Composer](https://getcomposer.org/) >= 2.0
+* [Swoole](https://www.swoole.com/) >= 4.8.0
+* [imi](https://www.imiphp.com/) >= 2.1
 
 ## 版权信息
 
