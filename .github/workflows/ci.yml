@@ -15,7 +15,7 @@ jobs:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
       ETCD_VERSION: ${{ matrix.etcd }}
       IMI_ETCD_HOST: etcd
-      IMI_ETCD_VERSION: 'v3'
+      IMI_ETCD_VERSION: "v3"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -46,13 +46,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        swoole: [ 5.0-php8.1 ]
-        etcd: [ 3.5, 3.4]
+        swoole: [5.0-php8.1]
+        etcd:
+          - version: 3.5
+            etcd_url_version: "v3"
+          - version: 3.4
+            etcd_url_version: "v3"
+          - version: 3.3
+            etcd_url_version: "v3beta"
     env:
       SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
       ETCD_VERSION: ${{ matrix.etcd }}
       IMI_ETCD_HOST: ETCD
-      IMI_ETCD_VERSION: 'v3'
+      IMI_ETCD_VERSION: "v3"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -64,43 +70,6 @@ jobs:
           docker exec swoole php --ri swoole
           docker exec swoole composer -V
           docker exec swoole composer update --no-interaction --prefer-dist --no-progress
-      - name: Wait for container
-        uses: stringbean/docker-healthcheck-action@v1
-        with:
-          container: etcd
-          wait-time: 120
-          require-status: running
-          require-healthy: true
-      - name: Test
-        run: docker exec swoole composer test
-      - name: Print logs
-        if: failure()
-        run: cat example/.runtime/logs/*.log
-
-  etcd33:
-    name: Linux Swoole-${{ matrix.swoole }} Etcd-3.3
-    runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-        swoole: [ 5.0-php8.1 ]
-        etcd: [3.3]
-    env:
-      SWOOLE_DOCKER_VERSION: ${{ matrix.swoole }}
-      ETCD_VERSION: ${{ matrix.etcd }}
-      IMI_ETCD_HOST: ETCD
-      IMI_ETCD_VERSION: 'v3beta'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Prepare
-        run: |
-                docker-compose -f ./.github/docker-compose.yml up -d
-                docker exec swoole php -v
-                docker exec swoole php -m
-                docker exec swoole php --ri swoole
-                docker exec swoole composer -V
-                docker exec swoole composer update --no-interaction --prefer-dist --no-progress
       - name: Wait for container
         uses: stringbean/docker-healthcheck-action@v1
         with:
