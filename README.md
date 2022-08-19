@@ -16,15 +16,9 @@
 
 * [x] 配置中心
 
-## Composer
+## 安装
 
-本项目可以使用composer安装，遵循psr-4自动加载规则，在你的 `composer.json` 中加入下面的内容:
-
-```json
-
-```
-
-然后执行 `composer update` 安装。
+`composer require imiphp/imi-etcd:~2.1.0`
 
 ## 使用说明
 
@@ -64,6 +58,26 @@
         ],
     ],
 ]
+```
+
+### 获取配置
+
+```php
+\Imi\Config::get('etcd'); // 对应 imi-etcd-key1
+```
+
+### 写入配置
+
+```php
+/** @var \Imi\ConfigCenter\ConfigCenter $configCenter */
+$configCenter = App::getBean('ConfigCenter');
+$name = 'imi-etcd-key1';
+$value = json_encode(['imi' => 'niubi']);
+// prev_kv set value and return previous value
+$options = [
+    'prev_kv' => true,
+];
+$configCenter->getDriver('etcd')->push($name, $value, $options);
 ```
 
 ## 免费技术支持
