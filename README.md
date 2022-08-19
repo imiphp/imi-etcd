@@ -27,6 +27,9 @@
 `@app.beans`：
 
 ```php
+use function Imi\env;
+use Imi\Util\Imi;
+
 [
     'ConfigCenter' => [
         // 'mode'    => \Imi\ConfigCenter\Enum\Mode::WORKER, // 工作进程模式
