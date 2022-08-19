@@ -73,10 +73,8 @@
 $configCenter = App::getBean('ConfigCenter');
 $name = 'imi-etcd-key1';
 $value = json_encode(['imi' => 'niubi']);
-// prev_kv set value and return previous value
-$options = [
-    'prev_kv' => true,
-];
+$options = [];
+$configCenter->getDriver('etcd')->push($name, $value);
 $configCenter->getDriver('etcd')->push($name, $value, $options);
 ```
 

@@ -54,10 +54,6 @@ class IndexController extends HttpController
      */
     public function set(string $name, string $value)
     {
-        // prev_kv set value and return previous value
-        $options = [
-            'prev_kv' => true,
-        ];
-        $this->configCenter->getDriver('etcd')->push($name, $value, $options);
+        $this->configCenter->getDriver('etcd')->push($name, $value);
     }
 }
